@@ -66,21 +66,26 @@ public class RentalAgreement {
         return this.preDiscountCharge().subtract(this.discountAmount());
     }
 
-    public void printAgreement() {
+    @Override
+    public String toString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
-        NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+        NumberFormat percentFormat = NumberFormat.getPercentInstance();
+        return (
+                "Rental days: " + this.numRentalDays + "\n" +
+                "Check out date: " + dateTimeFormatter.format(this.checkoutDate) + "\n" +
+                "Due date: " + dateTimeFormatter.format(this.dueDate()) + "\n" +
+                "Daily rental charge: " + currencyFormat.format(this.tool.getDailyCharge()) + "\n" +
+                "Charge days: " + this.numChargeDays(this.tool) + "\n" +
+                "Pre-discount charge: " + currencyFormat.format(this.preDiscountCharge()) + "\n" +
+                "Discount percent: " + percentFormat.format(this.discountPercent) + "\n" +
+                "Discount amount: " + currencyFormat.format(this.discountAmount()) + "\n" +
+                "Final charge: " + currencyFormat.format(this.finalCharge())
+                );
+    };
 
-        System.out.printf("main.tool.Tool code: %s\n", this.tool.getCode());
-        System.out.printf("main.tool.Tool type: %s\n", this.tool.getToolTypeName());
-        System.out.printf("main.tool.Tool brand: %s\n", this.tool.getBrand());
-        System.out.printf("Rental days: %d\n", this.numRentalDays);
-        System.out.printf("Check out date: %s\n", dateTimeFormatter.format(this.checkoutDate));
-        System.out.printf("Due date: %s\n", dateTimeFormatter.format(this.dueDate()));
-        System.out.printf("Daily rental charge: %s\n", numberFormat.format(this.tool.getDailyCharge()));
-        System.out.printf("Charge days: %d\n", this.numChargeDays(this.tool));
-        System.out.printf("Pre-discount charge: %s\n", numberFormat.format(this.preDiscountCharge()));
-        System.out.printf("Discount percent: %d%%\n", this.discountPercent);
-        System.out.printf("Discount amount: %s\n", numberFormat.format(this.discountAmount()));
-        System.out.printf("Final charge: %s\n", numberFormat.format(this.finalCharge()));
+    public void printAgreement() {
+        System.out.println(this.tool.toString());
+        System.out.println(this);
     }
 }

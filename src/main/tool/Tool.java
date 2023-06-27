@@ -33,4 +33,12 @@ public abstract class Tool {
     public abstract Boolean getIsWeekdayCharge();
     public abstract Boolean getIsWeekendCharge();
     public abstract Boolean getIsHolidayCharge();
+
+    @Override
+    public String toString() {
+        return ("Tool code: " + getCode() + "\n"
+                + "Tool type: " + getToolTypeName() + "\n"
+                + "Tool brand: " +getBrand());
+    };
+
 }
