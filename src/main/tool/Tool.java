@@ -1,3 +1,5 @@
+package tool;
+
 import enums.ToolBrand;
 import enums.ToolTypeName;
 
@@ -18,17 +20,17 @@ public abstract class Tool {
             "R", ToolBrand.Ridgid
     );
 
-    String getCode() {
+    public String getCode() {
         return this.code;
     }
 
-    ToolBrand getBrand() {
+    public ToolBrand getBrand() {
         String brandCode = (code).substring(3);
         return brandMap.get(brandCode);
     };
-    abstract ToolTypeName getToolTypeName();
-    abstract BigDecimal getDailyCharge();
-    abstract Boolean getIsWeekdayCharge();
-    abstract Boolean getIsWeekendCharge();
-    abstract Boolean getIsHolidayCharge();
+    public abstract ToolTypeName getToolTypeName();
+    public abstract BigDecimal getDailyCharge();
+    public abstract Boolean getIsWeekdayCharge();
+    public abstract Boolean getIsWeekendCharge();
+    public abstract Boolean getIsHolidayCharge();
 }

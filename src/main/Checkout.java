@@ -7,7 +7,6 @@ public class Checkout {
     String stringCheckoutDate;
     LocalDate checkoutDate;
 
-
     public Checkout(String toolCode, int numRentalDays, int discountPercent, String stringCheckoutDate) {
         this.toolCode = toolCode;
         this.numRentalDays = numRentalDays;

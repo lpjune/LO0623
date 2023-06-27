@@ -3,6 +3,8 @@ import enums.ToolTypeName;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import tool.Tool;
+import tool.ToolFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 

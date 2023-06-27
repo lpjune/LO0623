@@ -1,3 +1,6 @@
+import tool.Tool;
+import tool.ToolFactory;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -67,9 +70,9 @@ public class RentalAgreement {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
 
-        System.out.printf("main.Tool code: %s\n", this.tool.getCode());
-        System.out.printf("main.Tool type: %s\n", this.tool.getToolTypeName());
-        System.out.printf("main.Tool brand: %s\n", this.tool.getBrand());
+        System.out.printf("main.tool.Tool code: %s\n", this.tool.getCode());
+        System.out.printf("main.tool.Tool type: %s\n", this.tool.getToolTypeName());
+        System.out.printf("main.tool.Tool brand: %s\n", this.tool.getBrand());
         System.out.printf("Rental days: %d\n", this.numRentalDays);
         System.out.printf("Check out date: %s\n", dateTimeFormatter.format(this.checkoutDate));
         System.out.printf("Due date: %s\n", dateTimeFormatter.format(this.dueDate()));
