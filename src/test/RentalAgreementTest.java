@@ -5,6 +5,9 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class RentalAgreementTest {
     private static final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private static final PrintStream originalOut = System.out;
@@ -31,8 +34,9 @@ class RentalAgreementTest {
         );
         rentalAgreement.printAgreement();
         List<String> printed = List.of(outContent.toString().split("\n"));
-        Assertions.assertTrue(printed.contains("Discount percent: 10%"));
-        Assertions.assertFalse(printed.contains("Discount percent: 11%"));
+        Assertions.assertAll(() -> assertTrue(printed.contains("Discount percent: 10%")),
+                             () -> assertFalse(printed.contains("Discount percent: 11%"))
+        );
     }
 
 }

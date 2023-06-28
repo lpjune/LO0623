@@ -9,11 +9,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class RentalAgreement {
-    Tool tool;
-    int numRentalDays;
-    LocalDate checkoutDate;
-    int discountPercent;
-    ToolFactory toolFactory = new ToolFactory();
+    private Tool tool;
+    private int numRentalDays;
+    private LocalDate checkoutDate;
+    private int discountPercent;
+    private ToolFactory toolFactory = new ToolFactory();
 
 
     public RentalAgreement(String toolCode, int numRentalDays, LocalDate checkoutDate, int discountPercent) {
@@ -70,7 +70,6 @@ public class RentalAgreement {
     public String toString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
-        NumberFormat percentFormat = NumberFormat.getPercentInstance();
         return (
                 "Rental days: " + this.numRentalDays + "\n" +
                 "Check out date: " + dateTimeFormatter.format(this.checkoutDate) + "\n" +
@@ -78,7 +77,7 @@ public class RentalAgreement {
                 "Daily rental charge: " + currencyFormat.format(this.tool.getDailyCharge()) + "\n" +
                 "Charge days: " + this.numChargeDays(this.tool) + "\n" +
                 "Pre-discount charge: " + currencyFormat.format(this.preDiscountCharge()) + "\n" +
-                "Discount percent: " + percentFormat.format(this.discountPercent) + "\n" +
+                "Discount percent: " + this.discountPercent + "%\n" +
                 "Discount amount: " + currencyFormat.format(this.discountAmount()) + "\n" +
                 "Final charge: " + currencyFormat.format(this.finalCharge())
                 );
@@ -87,5 +86,21 @@ public class RentalAgreement {
     public void printAgreement() {
         System.out.println(this.tool.toString());
         System.out.println(this);
+    }
+
+    public Tool getTool() {
+        return tool;
+    }
+
+    public int getNumRentalDays() {
+        return numRentalDays;
+    }
+
+    public LocalDate getCheckoutDate() {
+        return checkoutDate;
+    }
+
+    public int getDiscountPercent() {
+        return discountPercent;
     }
 }
