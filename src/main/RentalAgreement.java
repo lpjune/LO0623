@@ -1,7 +1,3 @@
-package main;
-
-import main.tool.Tool;
-import main.tool.ToolFactory;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -9,6 +5,8 @@ import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import tool.Tool;
+import tool.ToolFactory;
 
 public class RentalAgreement {
     private Tool tool;

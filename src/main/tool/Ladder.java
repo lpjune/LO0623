@@ -1,4 +1,4 @@
-package main.tool;
+package tool;
 
 import enums.ToolTypeName;
 
