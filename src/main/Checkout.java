@@ -1,3 +1,5 @@
+package main;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -12,11 +14,11 @@ public class Checkout {
     List<String> toolStock;
     private static Pattern DATE_PATTERN = Pattern.compile(
             // February only has 28 days
-            "^(02)/(0[1-9]|1[0-9]|2[0-8])$"
+            "^(02 | 2)/(0?[1-9]|1[0-9]|2[0-8])$"
             // Months with 31 days
-            + "|^((0[13578]|10|12)/(0[1-9]|[12][0-9]|3[01])/([0-9]{2}))$"
+            + "|^((0?[13578]|10|12)/(0?[1-9]|[12][0-9]|3[01])/([0-9]{2}))$"
             // Months with 30 days
-            + "|^((0[469]|11)/(0[1-9]|[12][0-9]|30)/([0-9]{2}))$"
+            + "|^((0?[469]|11)/(0?[1-9]|[12][0-9]|30)/([0-9]{2}))$"
     );
 
     public Checkout(List<String> toolStock) {
@@ -25,8 +27,8 @@ public class Checkout {
 
     public void startCheckout(Scanner scanner) {
         this.toolCode = getToolCodeInput(scanner);
-        this.numRentalDays = getNumRentalDaysInput(scanner);
         this.checkoutDate = getCheckoutDateInput(scanner);
+        this.numRentalDays = getNumRentalDaysInput(scanner);
         this.discountPercent = getDiscountPercentInput(scanner);
 //        scanner.close();
         CheckoutCalendar.init(checkoutDate.getYear());
@@ -51,6 +53,23 @@ public class Checkout {
         return toolStock.get(toolNumber - 1);
     };
 
+    public LocalDate getCheckoutDateInput(Scanner scanner) {
+        String checkoutDateString;
+        System.out.println("Please enter the checkout date (mm/dd/yy): ");
+        scanner.nextLine();
+        do {
+            while (!scanner.hasNextLine()) {
+                scanner.next();
+            }
+            checkoutDateString = scanner.nextLine();
+
+            if (!DATE_PATTERN.matcher(checkoutDateString).matches()) {
+                System.out.println("Please enter the checkout date in the format (mm/dd/yy): ");
+            }
+        } while (!DATE_PATTERN.matcher(checkoutDateString).matches());
+        return constructCheckoutDate(checkoutDateString);
+    }
+
     public int getNumRentalDaysInput(Scanner scanner) {
         int numRentalDays;
         System.out.println("Please enter the number of rental days:");
@@ -65,23 +84,6 @@ public class Checkout {
             }
         } while (numRentalDays <= 0);
         return numRentalDays;
-    }
-
-    public LocalDate getCheckoutDateInput(Scanner scanner) {
-        String checkoutDateString;
-        System.out.println("Please enter the checkout date (mm/dd/yy): ");
-        scanner.next();
-        do {
-            while (!scanner.hasNextLine()) {
-
-                scanner.next();
-            }
-            checkoutDateString = scanner.nextLine();
-            if (!DATE_PATTERN.matcher(checkoutDateString).matches()) {
-                System.out.println("Please enter the checkout date in the format (mm/dd/yy): ");
-            }
-        } while (!DATE_PATTERN.matcher(checkoutDateString).matches());
-        return constructCheckoutDate(checkoutDateString);
     }
 
     public int getDiscountPercentInput(Scanner scanner) {
@@ -103,10 +105,14 @@ public class Checkout {
 
 
     public LocalDate constructCheckoutDate(String stringDate) {
-        stringDate = stringDate.replace("/", "");
-        int month = Integer.parseInt(stringDate.substring(0, 2));
-        int day = Integer.parseInt(stringDate.substring(2, 4));
-        int year = Integer.parseInt("20" + stringDate.substring(4));
+        List<String> arrayDate = List.of(stringDate.split("/"));
+
+        int month = Integer.parseInt(arrayDate.get(0));
+        int day = Integer.parseInt(arrayDate.get(1));
+        int year = Integer.parseInt("20" + arrayDate.get(2));
+        System.out.println(month);
+        System.out.println(day);
+        System.out.println(year);
         return LocalDate.of(year, month, day);
     }
 

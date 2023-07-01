@@ -1,5 +1,7 @@
-import tool.Tool;
-import tool.ToolFactory;
+package main;
+
+import main.tool.Tool;
+import main.tool.ToolFactory;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

@@ -1,4 +1,4 @@
-package tool;
+package main.tool;
 
 public class ToolFactory {
     public Tool getTool(String code) {

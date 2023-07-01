@@ -1,14 +1,14 @@
+import main.Checkout;
+import main.RentalAgreement;
 import org.junit.jupiter.api.*;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class CheckoutTest {
@@ -32,7 +32,7 @@ class CheckoutTest {
     @Test
     @DisplayName("Should start checkout")
     void shouldStartCheckout() {
-        Scanner scanner = new Scanner("2" + "\n" + "3" + "\n" + "abc" + "\n" + "03/09/24" + "\n" + "10");
+        Scanner scanner = new Scanner("2" + "\n" + "3/9/24" + "\n" + "3" + "\n" + "10");
         checkout = new Checkout(toolStock);
         checkout.startCheckout(scanner);
         scanner.close();
@@ -68,7 +68,7 @@ class CheckoutTest {
     @DisplayName("Should get checkout date input")
     void shouldGetCheckoutDateInput() {
         checkout = new Checkout(toolStock);
-        Scanner scanner = new Scanner("\r\n" + "a" + "\n" + "3" + "\n" + "06/09/24");
+        Scanner scanner = new Scanner("\r\n" + "a" + "\n" + "3" + "\n" + "6/9/24");
         LocalDate checkoutDate = checkout.getCheckoutDateInput(scanner);
         List<String> printed = List.of(outContent.toString().split("\n"));
         Assertions.assertTrue(printed.contains("Please enter the checkout date in the format (mm/dd/yy): "));
@@ -91,7 +91,7 @@ class CheckoutTest {
     void shouldConstructCheckoutDate() {
         checkout = new Checkout(toolStock);
 
-        LocalDate checkoutDate = checkout.constructCheckoutDate("06/27/23");
+        LocalDate checkoutDate = checkout.constructCheckoutDate("6/27/23");
         Assertions.assertEquals(LocalDate.of(2023, 6, 27), checkoutDate);
     }
 
