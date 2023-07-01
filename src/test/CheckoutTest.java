@@ -2,6 +2,7 @@
 import org.junit.jupiter.api.*;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -106,6 +107,6 @@ class CheckoutTest {
         Assertions.assertAll(() -> assertEquals(rentalAgreement.getTool().getCode(), checkout.getToolCode()),
                              () -> assertEquals(rentalAgreement.getNumRentalDays(), checkout.getNumRentalDays()),
                              () -> assertEquals(rentalAgreement.getCheckoutDate(), checkout.getCheckoutDate()),
-                             () -> assertEquals(rentalAgreement.getDiscountPercent(), checkout.getDiscountPercent()));
+                             () -> assertEquals(rentalAgreement.getDiscountPercent(), BigDecimal.valueOf(checkout.getDiscountPercent())));
     }
 }

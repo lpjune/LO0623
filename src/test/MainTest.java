@@ -3,6 +3,7 @@ import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -56,6 +57,12 @@ class MainTest {
                 () -> assertEquals(checkout.getNumRentalDays(), 3),
                 () -> assertEquals(checkout.getCheckoutDate(), LocalDate.of(2020, 7, 2)),
                 () -> assertEquals(checkout.getDiscountPercent(), 10));
+        RentalAgreement rentalAgreement = checkout.generateRentalAgreement();
+        Assertions.assertAll(() -> assertEquals(rentalAgreement.getDueDate(), LocalDate.of(2020, 7, 5)),
+                             () -> assertEquals(rentalAgreement.getNumChargeDays(), 2),
+                             () -> assertEquals(rentalAgreement.getPreDiscountCharge(), BigDecimal.valueOf(3.98)),
+                             () -> assertEquals(rentalAgreement.getDiscountAmount().toString(), "0.40"),
+                             () -> assertEquals(rentalAgreement.getFinalCharge().toString(), "3.58"));
     }
 
     @Test
@@ -69,6 +76,12 @@ class MainTest {
                 () -> assertEquals(checkout.getNumRentalDays(), 5),
                 () -> assertEquals(checkout.getCheckoutDate(), LocalDate.of(2015, 7, 2)),
                 () -> assertEquals(checkout.getDiscountPercent(), 25));
+        RentalAgreement rentalAgreement = checkout.generateRentalAgreement();
+        Assertions.assertAll(() -> assertEquals(rentalAgreement.getDueDate(), LocalDate.of(2015, 7, 7)),
+                () -> assertEquals(rentalAgreement.getNumChargeDays(), 3),
+                () -> assertEquals(rentalAgreement.getPreDiscountCharge(), BigDecimal.valueOf(4.47)),
+                () -> assertEquals(rentalAgreement.getDiscountAmount().toString(), "1.12"),
+                () -> assertEquals(rentalAgreement.getFinalCharge().toString(), "3.35"));
     }
 
     @Test
@@ -82,6 +95,12 @@ class MainTest {
                 () -> assertEquals(checkout.getCheckoutDate(), LocalDate.of(2015, 9, 3)),
                 () -> assertEquals(checkout.getNumRentalDays(), 6),
                 () -> assertEquals(checkout.getDiscountPercent(), 0));
+        RentalAgreement rentalAgreement = checkout.generateRentalAgreement();
+        Assertions.assertAll(() -> assertEquals(rentalAgreement.getDueDate(), LocalDate.of(2015, 9, 9)),
+                () -> assertEquals(rentalAgreement.getNumChargeDays(), 3),
+                () -> assertEquals(rentalAgreement.getPreDiscountCharge(), BigDecimal.valueOf(8.97)),
+                () -> assertEquals(rentalAgreement.getDiscountAmount().toString(), "0"),
+                () -> assertEquals(rentalAgreement.getFinalCharge().toString(), "8.97"));
     }
 
     @Test
@@ -95,6 +114,12 @@ class MainTest {
                 () -> assertEquals(checkout.getCheckoutDate(), LocalDate.of(2015, 7, 2)),
                 () -> assertEquals(checkout.getNumRentalDays(), 9),
                 () -> assertEquals(checkout.getDiscountPercent(), 0));
+        RentalAgreement rentalAgreement = checkout.generateRentalAgreement();
+        Assertions.assertAll(() -> assertEquals(rentalAgreement.getDueDate(), LocalDate.of(2015, 7, 11)),
+                () -> assertEquals(rentalAgreement.getNumChargeDays(), 5),
+                () -> assertEquals(rentalAgreement.getPreDiscountCharge(), BigDecimal.valueOf(14.95)),
+                () -> assertEquals(rentalAgreement.getDiscountAmount().toString(), "0"),
+                () -> assertEquals(rentalAgreement.getFinalCharge().toString(), "14.95"));
     }
 
     @Test
@@ -108,5 +133,11 @@ class MainTest {
                 () -> assertEquals(checkout.getCheckoutDate(), LocalDate.of(2020, 7, 2)),
                 () -> assertEquals(checkout.getNumRentalDays(), 4),
                 () -> assertEquals(checkout.getDiscountPercent(), 50));
+        RentalAgreement rentalAgreement = checkout.generateRentalAgreement();
+        Assertions.assertAll(() -> assertEquals(rentalAgreement.getDueDate(), LocalDate.of(2020, 7, 6)),
+                () -> assertEquals(rentalAgreement.getNumChargeDays(), 1),
+                () -> assertEquals(rentalAgreement.getPreDiscountCharge(), BigDecimal.valueOf(2.99)),
+                () -> assertEquals(rentalAgreement.getDiscountAmount().toString(), "1.50"),
+                () -> assertEquals(rentalAgreement.getFinalCharge().toString(), "1.49"));
     }
 }

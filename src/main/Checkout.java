@@ -30,7 +30,6 @@ public class Checkout {
         this.checkoutDate = getCheckoutDateInput(scanner);
         this.numRentalDays = getNumRentalDaysInput(scanner);
         this.discountPercent = getDiscountPercentInput(scanner);
-//        scanner.close();
         CheckoutCalendar.init(checkoutDate.getYear());
     }
 
@@ -110,9 +109,6 @@ public class Checkout {
         int month = Integer.parseInt(arrayDate.get(0));
         int day = Integer.parseInt(arrayDate.get(1));
         int year = Integer.parseInt("20" + arrayDate.get(2));
-        System.out.println(month);
-        System.out.println(day);
-        System.out.println(year);
         return LocalDate.of(year, month, day);
     }
 

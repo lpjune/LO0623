@@ -12,22 +12,34 @@ public class RentalAgreement {
     private Tool tool;
     private int numRentalDays;
     private LocalDate checkoutDate;
-    private int discountPercent;
+    private BigDecimal discountPercent;
     private ToolFactory toolFactory = new ToolFactory();
+
+    private LocalDate dueDate;
+    private int numChargeDays;
+    private BigDecimal preDiscountCharge;
+    private BigDecimal discountAmount;
+    private BigDecimal finalCharge;
 
 
     public RentalAgreement(String toolCode, int numRentalDays, LocalDate checkoutDate, int discountPercent) {
         this.tool = toolFactory.getTool(toolCode);
         this.numRentalDays = numRentalDays;
         this.checkoutDate = checkoutDate;
-        this.discountPercent = discountPercent;
+        this.discountPercent = BigDecimal.valueOf(discountPercent);
+
+        this.dueDate = calcDueDate();
+        this.numChargeDays = calcNumChargeDays(this.tool);
+        this.preDiscountCharge = calcPreDiscountCharge();
+        this.discountAmount = calcDiscountAmount();
+        this.finalCharge = this.calcFinalCharge();
     }
 
-    private LocalDate dueDate() {
+    private LocalDate calcDueDate() {
         return checkoutDate.plusDays(this.numRentalDays);
     };
     
-    private Integer numChargeDays(Tool tool) {
+    private int calcNumChargeDays(Tool tool) {
         CheckoutCalendar checkoutCalendar = CheckoutCalendar.getInstance();
         int chargeDays = 0;
         for (int i = 1; i < this.numRentalDays + 1; i++) {
@@ -48,22 +60,22 @@ public class RentalAgreement {
         return chargeDays;
     }
 
-    private BigDecimal preDiscountCharge() {
-        return (this.tool.getDailyCharge().multiply(BigDecimal.valueOf(this.numChargeDays(this.tool))))
-                .round(new MathContext(2, RoundingMode.HALF_UP));
+    private BigDecimal calcPreDiscountCharge() {
+        return (this.tool.getDailyCharge().multiply(BigDecimal.valueOf(this.numChargeDays)).setScale(2, RoundingMode.HALF_UP));
     }
 
-    private BigDecimal discountAmount() {
-        if (discountPercent != 0) {
-            return this.preDiscountCharge().multiply(BigDecimal.valueOf(this.discountPercent / 100))
-                    .round(new MathContext(2, RoundingMode.HALF_UP));
+    private BigDecimal calcDiscountAmount() {
+        if (!discountPercent.equals(BigDecimal.ZERO)) {
+            return this.preDiscountCharge.multiply
+                    (this.discountPercent.divide(BigDecimal.valueOf(100))
+                    ).setScale(2, RoundingMode.HALF_UP);
         } else {
             return BigDecimal.valueOf(0);
         }
     }
 
-    private BigDecimal finalCharge() {
-        return this.preDiscountCharge().subtract(this.discountAmount());
+    private BigDecimal calcFinalCharge() {
+        return this.preDiscountCharge.subtract(this.discountAmount);
     }
 
     @Override
@@ -73,13 +85,13 @@ public class RentalAgreement {
         return (
                 "Rental days: " + this.numRentalDays + "\n" +
                 "Check out date: " + dateTimeFormatter.format(this.checkoutDate) + "\n" +
-                "Due date: " + dateTimeFormatter.format(this.dueDate()) + "\n" +
+                "Due date: " + dateTimeFormatter.format(this.dueDate) + "\n" +
                 "Daily rental charge: " + currencyFormat.format(this.tool.getDailyCharge()) + "\n" +
-                "Charge days: " + this.numChargeDays(this.tool) + "\n" +
-                "Pre-discount charge: " + currencyFormat.format(this.preDiscountCharge()) + "\n" +
+                "Charge days: " + this.numChargeDays + "\n" +
+                "Pre-discount charge: " + currencyFormat.format(this.preDiscountCharge) + "\n" +
                 "Discount percent: " + this.discountPercent + "%\n" +
-                "Discount amount: " + currencyFormat.format(this.discountAmount()) + "\n" +
-                "Final charge: " + currencyFormat.format(this.finalCharge())
+                "Discount amount: " + currencyFormat.format(this.discountAmount) + "\n" +
+                "Final charge: " + currencyFormat.format(this.finalCharge)
                 );
     };
 
@@ -100,7 +112,27 @@ public class RentalAgreement {
         return checkoutDate;
     }
 
-    public int getDiscountPercent() {
+    public BigDecimal getDiscountPercent() {
         return discountPercent;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public int getNumChargeDays() {
+        return numChargeDays;
+    }
+
+    public BigDecimal getPreDiscountCharge() {
+        return preDiscountCharge;
+    }
+
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public BigDecimal getFinalCharge() {
+        return finalCharge;
     }
 }
