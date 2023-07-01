@@ -1,11 +1,11 @@
+import tool.Tool;
+import tool.ToolFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import tool.Tool;
-import tool.ToolFactory;
 
 public class RentalAgreement {
     private final Tool tool;
@@ -83,15 +83,15 @@ public class RentalAgreement {
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
         return (
                 "Rental days: " + this.numRentalDays + "\n" +
-                "Check out date: " + dateTimeFormatter.format(this.checkoutDate) + "\n" +
-                "Due date: " + dateTimeFormatter.format(this.dueDate) + "\n" +
-                "Daily rental charge: " + currencyFormat.format(this.tool.getDailyCharge()) + "\n" +
-                "Charge days: " + this.numChargeDays + "\n" +
-                "Pre-discount charge: " + currencyFormat.format(this.preDiscountCharge) + "\n" +
-                "Discount percent: " + this.discountPercent + "%\n" +
-                "Discount amount: " + currencyFormat.format(this.discountAmount) + "\n" +
-                "Final charge: " + currencyFormat.format(this.finalCharge)
-                );
+                        "Check out date: " + dateTimeFormatter.format(this.checkoutDate) + "\n" +
+                        "Due date: " + dateTimeFormatter.format(this.dueDate) + "\n" +
+                        "Daily rental charge: " + currencyFormat.format(this.tool.getDailyCharge()) + "\n" +
+                        "Charge days: " + this.numChargeDays + "\n" +
+                        "Pre-discount charge: " + currencyFormat.format(this.preDiscountCharge) + "\n" +
+                        "Discount percent: " + this.discountPercent + "%\n" +
+                        "Discount amount: " + currencyFormat.format(this.discountAmount) + "\n" +
+                        "Final charge: " + currencyFormat.format(this.finalCharge)
+        );
     }
 
     public void printAgreement() {

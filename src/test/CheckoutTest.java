@@ -1,23 +1,22 @@
-
 import org.junit.jupiter.api.*;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class CheckoutTest {
 
     private static final List<String> toolStock = Arrays.asList("CHNS", "LADW", "JAKD", "JAKR");
-    private static Checkout checkout;
     private static final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private static final PrintStream originalOut = System.out;
-
+    private static Checkout checkout;
 
     @BeforeAll
     static void setUp() {
@@ -105,8 +104,8 @@ class CheckoutTest {
         checkout.setDiscountPercent(20);
         RentalAgreement rentalAgreement = checkout.generateRentalAgreement();
         Assertions.assertAll(() -> assertEquals(rentalAgreement.getTool().getCode(), checkout.getToolCode()),
-                             () -> assertEquals(rentalAgreement.getNumRentalDays(), checkout.getNumRentalDays()),
-                             () -> assertEquals(rentalAgreement.getCheckoutDate(), checkout.getCheckoutDate()),
-                             () -> assertEquals(rentalAgreement.getDiscountPercent(), BigDecimal.valueOf(checkout.getDiscountPercent())));
+                () -> assertEquals(rentalAgreement.getNumRentalDays(), checkout.getNumRentalDays()),
+                () -> assertEquals(rentalAgreement.getCheckoutDate(), checkout.getCheckoutDate()),
+                () -> assertEquals(rentalAgreement.getDiscountPercent(), BigDecimal.valueOf(checkout.getDiscountPercent())));
     }
 }

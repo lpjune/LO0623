@@ -1,4 +1,3 @@
-
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
@@ -12,10 +11,9 @@ import java.util.Scanner;
 class MainTest {
 
     private static final List<String> toolStock = Arrays.asList("CHNS", "LADW", "JAKD", "JAKR");
-    private static Checkout checkout;
     private static final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private static final PrintStream originalOut = System.out;
-
+    private static Checkout checkout;
 
     @BeforeAll
     static void setUp() {
@@ -56,10 +54,10 @@ class MainTest {
                 () -> Assertions.assertEquals(checkout.getDiscountPercent(), 10));
         RentalAgreement rentalAgreement = checkout.generateRentalAgreement();
         Assertions.assertAll(() -> Assertions.assertEquals(rentalAgreement.getDueDate(), LocalDate.of(2020, 7, 5)),
-                             () -> Assertions.assertEquals(rentalAgreement.getNumChargeDays(), 2),
-                             () -> Assertions.assertEquals(rentalAgreement.getPreDiscountCharge(), BigDecimal.valueOf(3.98)),
-                             () -> Assertions.assertEquals(rentalAgreement.getDiscountAmount().toString(), "0.40"),
-                             () -> Assertions.assertEquals(rentalAgreement.getFinalCharge().toString(), "3.58"));
+                () -> Assertions.assertEquals(rentalAgreement.getNumChargeDays(), 2),
+                () -> Assertions.assertEquals(rentalAgreement.getPreDiscountCharge(), BigDecimal.valueOf(3.98)),
+                () -> Assertions.assertEquals(rentalAgreement.getDiscountAmount().toString(), "0.40"),
+                () -> Assertions.assertEquals(rentalAgreement.getFinalCharge().toString(), "3.58"));
     }
 
     @Test

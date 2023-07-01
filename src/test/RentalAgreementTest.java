@@ -1,4 +1,3 @@
-
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
@@ -36,7 +35,7 @@ class RentalAgreementTest {
         rentalAgreement.printAgreement();
         List<String> printed = List.of(outContent.toString().split("\n"));
         Assertions.assertAll(() -> assertTrue(printed.contains("Discount percent: 10%")),
-                             () -> assertFalse(printed.contains("Discount percent: 11%"))
+                () -> assertFalse(printed.contains("Discount percent: 11%"))
         );
     }
 

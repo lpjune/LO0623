@@ -1,5 +1,3 @@
-
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -10,20 +8,19 @@ public class Checkout {
     public static final String CHECKOUT_DATE_ERR_MSG = "Please enter the checkout date in the format (mm/dd/yy): ";
     public static final String NUM_RENTAL_DAYS_ERR_MSG = "Please enter the number of rental days (1 or more): ";
     public static final String DISCOUNT_PERCENT_ERR_MSG = "Please enter a discount percentage between 0 and 100:";
+    private static final Pattern DATE_PATTERN = Pattern.compile(
+            // February only has 28 days
+            "^(02 | 2)/(0?[1-9]|1[0-9]|2[0-8])$"
+                    // Months with 31 days
+                    + "|^((0?[13578]|10|12)/(0?[1-9]|[12][0-9]|3[01])/([0-9]{2}))$"
+                    // Months with 30 days
+                    + "|^((0?[469]|11)/(0?[1-9]|[12][0-9]|30)/([0-9]{2}))$"
+    );
+    private final List<String> toolStock;
     private String toolCode;
     private int numRentalDays;
     private int discountPercent;
     private LocalDate checkoutDate;
-
-    private final List<String> toolStock;
-    private static final Pattern DATE_PATTERN = Pattern.compile(
-            // February only has 28 days
-            "^(02 | 2)/(0?[1-9]|1[0-9]|2[0-8])$"
-            // Months with 31 days
-            + "|^((0?[13578]|10|12)/(0?[1-9]|[12][0-9]|3[01])/([0-9]{2}))$"
-            // Months with 30 days
-            + "|^((0?[469]|11)/(0?[1-9]|[12][0-9]|30)/([0-9]{2}))$"
-    );
 
     public Checkout(List<String> toolStock) {
         this.toolStock = toolStock;
@@ -104,7 +101,6 @@ public class Checkout {
         } while (discountPercent < 0 || discountPercent > 100);
         return discountPercent;
     }
-
 
 
     public LocalDate constructCheckoutDate(String stringDate) {
