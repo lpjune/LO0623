@@ -1,7 +1,7 @@
 package enums;
 
 public enum ToolBrand {
-    Stihl, Werner, DeWalt, Ridgid;
+    Stihl, Werner, DeWalt, Ridgid
 }
 
 

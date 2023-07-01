@@ -1,6 +1,5 @@
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -9,20 +8,20 @@ import tool.Tool;
 import tool.ToolFactory;
 
 public class RentalAgreement {
-    private Tool tool;
-    private int numRentalDays;
-    private LocalDate checkoutDate;
-    private BigDecimal discountPercent;
-    private ToolFactory toolFactory = new ToolFactory();
+    private final Tool tool;
+    private final int numRentalDays;
+    private final LocalDate checkoutDate;
+    private final BigDecimal discountPercent;
 
-    private LocalDate dueDate;
-    private int numChargeDays;
-    private BigDecimal preDiscountCharge;
-    private BigDecimal discountAmount;
-    private BigDecimal finalCharge;
+    private final LocalDate dueDate;
+    private final int numChargeDays;
+    private final BigDecimal preDiscountCharge;
+    private final BigDecimal discountAmount;
+    private final BigDecimal finalCharge;
 
 
     public RentalAgreement(String toolCode, int numRentalDays, LocalDate checkoutDate, int discountPercent) {
+        ToolFactory toolFactory = new ToolFactory();
         this.tool = toolFactory.getTool(toolCode);
         this.numRentalDays = numRentalDays;
         this.checkoutDate = checkoutDate;
@@ -37,8 +36,8 @@ public class RentalAgreement {
 
     private LocalDate calcDueDate() {
         return checkoutDate.plusDays(this.numRentalDays);
-    };
-    
+    }
+
     private int calcNumChargeDays(Tool tool) {
         CheckoutCalendar checkoutCalendar = CheckoutCalendar.getInstance();
         int chargeDays = 0;
@@ -93,7 +92,7 @@ public class RentalAgreement {
                 "Discount amount: " + currencyFormat.format(this.discountAmount) + "\n" +
                 "Final charge: " + currencyFormat.format(this.finalCharge)
                 );
-    };
+    }
 
     public void printAgreement() {
         System.out.println(this.tool.toString());

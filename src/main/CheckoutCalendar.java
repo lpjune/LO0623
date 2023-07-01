@@ -20,9 +20,8 @@ public class CheckoutCalendar {
         return checkoutCalendar;
     }
 
-    public synchronized static CheckoutCalendar init(int year) {
+    public synchronized static void init(int year) {
         checkoutCalendar = new CheckoutCalendar(year);
-        return checkoutCalendar;
     }
 
     private void setHolidays() {

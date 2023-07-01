@@ -9,9 +9,9 @@ import tool.ToolFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ToolTest {
-    ToolFactory toolFactory = new ToolFactory();
+    private final ToolFactory toolFactory = new ToolFactory();
 
-    private final Tool tool1 = toolFactory.getTool("CHNS");;
+    private final Tool tool1 = toolFactory.getTool("CHNS");
     private final Tool tool2 = toolFactory.getTool("LADW");
     private final Tool tool3  = toolFactory.getTool("JAKD");
     private final Tool tool4 = toolFactory.getTool("JAKR");

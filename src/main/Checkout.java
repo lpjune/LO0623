@@ -6,13 +6,17 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Checkout {
+    public static final String TOOL_CODE_ERR_MSG = "Please enter a number corresponding to one of the tool codes above: ";
+    public static final String CHECKOUT_DATE_ERR_MSG = "Please enter the checkout date in the format (mm/dd/yy): ";
+    public static final String NUM_RENTAL_DAYS_ERR_MSG = "Please enter the number of rental days (1 or more): ";
+    public static final String DISCOUNT_PERCENT_ERR_MSG = "Please enter a discount percentage between 0 and 100:";
     private String toolCode;
     private int numRentalDays;
     private int discountPercent;
     private LocalDate checkoutDate;
 
-    List<String> toolStock;
-    private static Pattern DATE_PATTERN = Pattern.compile(
+    private final List<String> toolStock;
+    private static final Pattern DATE_PATTERN = Pattern.compile(
             // February only has 28 days
             "^(02 | 2)/(0?[1-9]|1[0-9]|2[0-8])$"
             // Months with 31 days
@@ -41,16 +45,16 @@ public class Checkout {
         }
         do {
             while (!scanner.hasNextInt()) {
-                System.out.println("Please enter a number corresponding to one of the tool codes above: ");
+                System.out.println(TOOL_CODE_ERR_MSG);
                 scanner.next();
             }
             toolNumber = scanner.nextInt();
             if (toolNumber <= 0 || toolNumber > toolStock.size()) {
-                System.out.println("Please enter a number corresponding to one of the tool codes above: ");
+                System.out.println(TOOL_CODE_ERR_MSG);
             }
         } while (toolNumber <= 0 || toolNumber > toolStock.size());
         return toolStock.get(toolNumber - 1);
-    };
+    }
 
     public LocalDate getCheckoutDateInput(Scanner scanner) {
         String checkoutDateString;
@@ -63,7 +67,7 @@ public class Checkout {
             checkoutDateString = scanner.nextLine();
 
             if (!DATE_PATTERN.matcher(checkoutDateString).matches()) {
-                System.out.println("Please enter the checkout date in the format (mm/dd/yy): ");
+                System.out.println(CHECKOUT_DATE_ERR_MSG);
             }
         } while (!DATE_PATTERN.matcher(checkoutDateString).matches());
         return constructCheckoutDate(checkoutDateString);
@@ -74,12 +78,12 @@ public class Checkout {
         System.out.println("Please enter the number of rental days:");
         do {
             while (!scanner.hasNextInt()) {
-                System.out.println("Please enter a valid number of rental days:");
+                System.out.println(NUM_RENTAL_DAYS_ERR_MSG);
                 scanner.next();
             }
             numRentalDays = scanner.nextInt();
             if (numRentalDays <= 0) {
-                System.out.println("Please enter the number of rental days (1 or more):");
+                System.out.println(NUM_RENTAL_DAYS_ERR_MSG);
             }
         } while (numRentalDays <= 0);
         return numRentalDays;
@@ -90,12 +94,12 @@ public class Checkout {
         System.out.println("Please enter a discount percentage:");
         do {
             while (!scanner.hasNextInt()) {
-                System.out.println("Please enter a discount percentage between 0 and 100:");
+                System.out.println(DISCOUNT_PERCENT_ERR_MSG);
                 scanner.next();
             }
             discountPercent = scanner.nextInt();
             if (discountPercent < 0 || discountPercent > 100) {
-                System.out.println("Please enter a discount percentage between 0 and 100:");
+                System.out.println(DISCOUNT_PERCENT_ERR_MSG);
             }
         } while (discountPercent < 0 || discountPercent > 100);
         return discountPercent;

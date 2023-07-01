@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 public abstract class Tool {
-    String code;
+    private final String code;
 
     Tool(String code) {
         this.code = code;
@@ -27,7 +27,8 @@ public abstract class Tool {
     public ToolBrand getBrand() {
         String brandCode = (code).substring(3);
         return brandMap.get(brandCode);
-    };
+    }
+
     public abstract ToolTypeName getToolTypeName();
     public abstract BigDecimal getDailyCharge();
     public abstract Boolean getIsWeekdayCharge();
@@ -39,6 +40,6 @@ public abstract class Tool {
         return ("Tool code: " + getCode() + "\n"
                 + "Tool type: " + getToolTypeName() + "\n"
                 + "Tool brand: " +getBrand());
-    };
+    }
 
 }

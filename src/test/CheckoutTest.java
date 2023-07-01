@@ -49,7 +49,7 @@ class CheckoutTest {
         Scanner scanner = new Scanner("a" + "\n" + "\n" + "0" + "\n" + "2");
         String code = checkout.getToolCodeInput(scanner);
         List<String> printed = List.of(outContent.toString().split("\n"));
-        Assertions.assertTrue(printed.contains("Please enter a number corresponding to one of the tool codes above: "));
+        Assertions.assertTrue(printed.contains(Checkout.TOOL_CODE_ERR_MSG));
         Assertions.assertEquals(code, "LADW");
     }
 
@@ -60,7 +60,7 @@ class CheckoutTest {
         Scanner scanner = new Scanner("0" + "\n" + "a" + "\n" + "3");
         int numDays = checkout.getNumRentalDaysInput(scanner);
         List<String> printed = List.of(outContent.toString().split("\n"));
-        Assertions.assertTrue(printed.contains("Please enter a valid number of rental days:"));
+        Assertions.assertTrue(printed.contains(Checkout.NUM_RENTAL_DAYS_ERR_MSG));
         Assertions.assertEquals(numDays, 3);
     }
 
@@ -71,7 +71,7 @@ class CheckoutTest {
         Scanner scanner = new Scanner("\r\n" + "a" + "\n" + "3" + "\n" + "6/9/24");
         LocalDate checkoutDate = checkout.getCheckoutDateInput(scanner);
         List<String> printed = List.of(outContent.toString().split("\n"));
-        Assertions.assertTrue(printed.contains("Please enter the checkout date in the format (mm/dd/yy): "));
+        Assertions.assertTrue(printed.contains(Checkout.CHECKOUT_DATE_ERR_MSG));
         Assertions.assertEquals(checkoutDate, LocalDate.of(2024, 6, 9));
     }
 
@@ -82,7 +82,7 @@ class CheckoutTest {
         Scanner scanner = new Scanner("a" + "\n" + "-1" + "\n" + "15");
         int discountPercent = checkout.getDiscountPercentInput(scanner);
         List<String> printed = List.of(outContent.toString().split("\n"));
-        Assertions.assertTrue(printed.contains("Please enter a discount percentage between 0 and 100:"));
+        Assertions.assertTrue(printed.contains(Checkout.DISCOUNT_PERCENT_ERR_MSG));
         Assertions.assertEquals(discountPercent, 15);
     }
 
@@ -101,7 +101,7 @@ class CheckoutTest {
         Checkout checkout = new Checkout(toolStock);
         checkout.setToolCode("CHNS");
         checkout.setNumRentalDays(5);
-        checkout.setCheckoutDate(LocalDate.of(2024, 06, 07));
+        checkout.setCheckoutDate(LocalDate.of(2024, 6, 7));
         checkout.setDiscountPercent(20);
         RentalAgreement rentalAgreement = checkout.generateRentalAgreement();
         Assertions.assertAll(() -> assertEquals(rentalAgreement.getTool().getCode(), checkout.getToolCode()),
